@@ -36,6 +36,8 @@ Tabs.Main:AddParagraph({
     Title = "Text",
     Content = "Text"
 })
+```
+
 ---
 ## Elements
 
@@ -146,7 +148,7 @@ SaveManager:LoadAutoloadConfig()
 
 ## License
 
-MIT  1�7 see the original [Fluent repository](https://github.com/dawid-scripts/Fluent) for license details.
+MIT â€„1¤7 see the original [Fluent repository](https://github.com/dawid-scripts/Fluent) for license details.
 
 ---
 
