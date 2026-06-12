@@ -54,24 +54,6 @@ All elements are added via `Tab:AddElementType(id, config)`.
 
 
 
-## Custom Themes
-
-Register a custom theme before calling `CreateWindow`.
-
-```lua
-Fluent:RegisterCustomTheme("MyTheme", {
-    Accent      = Color3.fromRGB(96, 205, 255),
-    AcrylicMain = Color3.fromRGB(20, 20, 30),
-    Text        = Color3.fromRGB(240, 240, 255),
-    -- ... (see built-in themes for all fields)
-    IconColor   = Color3.fromRGB(96, 205, 255), -- tint all icons
-    IconSize    = 18,                            -- icon size in px
-})
-
--- Switch theme at runtime
-Fluent:SetTheme("MyTheme")
-```
-
 ```lua
 -- Usage example
 Tab:AddButton({ Title = "Home", Icon = "solar/home-bold", Callback = function() end })
