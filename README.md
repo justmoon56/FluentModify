@@ -7,9 +7,7 @@ A modified version of the [Fluent](https://github.com/dawid-scripts/Fluent) UI l
 ## Quick Start
 
 ```lua
-local Fluent = loadstring(game:HttpGet(
-    "https://github.com/StyearX/Fluent-Modded/releases/download/Fluent/FluentPro"
-))()
+local Fluent = loadstring(game:HttpGet("https://github.com/justmoon56/FluentModify/releases/download/Testing/FluentModify.lua"))()
 
 local Window = Fluent:CreateWindow({
     Title       = "My Hub",
