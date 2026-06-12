@@ -15,15 +15,13 @@ local Window = Fluent:CreateWindow({
     TabWidth    = 160,
     Size        = UDim2.fromOffset(500, 480),
     Acrylic     = true,
-    Theme       = "Deep Ocean",
+    Theme       = "Darker",
     MinimizeKey = Enum.KeyCode.LeftControl,
     Search      = true,
 })
-
-local Tab = Window:AddTab({ Title = "Main", Icon = "solar/home-bold" })
 ```
 
-- Global Tabs
+## Create Tabs
 ```lua
 local Tabs =  {
     Main = Window:AddTab({ Title = "| Main", Icon = "solar/home-bold }),
@@ -53,12 +51,6 @@ All elements are added via `Tab:AddElementType(id, config)`.
 | `AddParagraph` | Read-only text block |
 
 
-
-```lua
--- Usage example
-Tab:AddButton({ Title = "Home", Icon = "solar/home-bold", Callback = function() end })
-Tab:AddButton({ Title = "Archive", Icon = "gravity/archive", Callback = function() end })
-```
 
 ---
 
