@@ -52,30 +52,6 @@ All elements are added via `Tab:AddElementType(id, config)`.
 | `AddButton` | Clickable button |
 | `AddParagraph` | Read-only text block |
 
----
-## StyearX Elements
-
-All elements are added via `Tab:AddElementType(id, config)`.
-
-| Method | Description |
-|---|---|
-| `AddToggle` | On/off switch |
-| `AddSlider` | Numeric range slider |
-| `AddInput` | Text input box |
-| `AddDropdown` | Single or multi-select dropdown |
-| `AddColorpicker` | Color picker with transparency |
-| `AddKeybind` | Keyboard/mouse keybind |
-| `AddButton` | Clickable button |
-| `AddParagraph` | Read-only text block |
-| `AddCode` | Copy Button |
-| `AddSpace` | Space|
-| `AddGroup` | Group other element|
-| `Addimage` | image in Window support httpGet and rbxassetid |
-| `AddDivider` | divider|
-| `AddVideo` | Video In window Supported rbxassetid|
-| `AddAudio` | Audio In window Supported httpGet /http url and rbxassetid|
-
-
 
 
 ## Custom Themes
@@ -95,28 +71,6 @@ Fluent:RegisterCustomTheme("MyTheme", {
 -- Switch theme at runtime
 Fluent:SetTheme("MyTheme")
 ```
-
-### Built-in Themes
-
-`AMOLED` - `Ash Gray` - `Red` - `Cyanic` - `Amber Glow` - `Deep Violet` - `Neon Cyber` - `Neon Purple` - `Royal Blue` - `Deep Ocean` - `RGB` - `Orange` - `Charcoal` - `Pearl White` - `Midnight Blue` - `Galaxy Purple` - `Cosmic Violet` - `Cotton Candy`
-
----
-
-## Icon Packs
-
-All icon packs are loaded on demand. Use the `prefix/icon-name` format anywhere an `Icon` property is accepted.
-
-| Pack | Prefix | Repository |
-|---|---|---|
-| Solar | `solar/` | https://github.com/StyearX/Icons/tree/main/solar |
-| Gravity | `gravity/` | https://github.com/StyearX/Icons/tree/main/gravity |
-| Lucide | `lucide/` | https://github.com/StyearX/Icons/tree/main/lucide |
-| Craft | `craft/` | https://github.com/StyearX/Icons/tree/main/craft |
-| Geist | `geist/` | https://github.com/StyearX/Icons/tree/main/geist |
-| SF Symbols | `sfsymbols/` | https://github.com/StyearX/Icons/tree/main/sfsymbols |
-| Heroicons | `hero/` | https://github.com/StyearX/Icons/blob/main/hero |
-| Google Material Icons| `gmi/` | https://github.com/StyearX/Icons/blob/main/GoogleMaterialIcons |
-
 
 ```lua
 -- Usage example
@@ -146,18 +100,14 @@ SaveManager:LoadAutoloadConfig()
 
 ## License
 
-MIT â€„1¤7 see the original [Fluent repository](https://github.com/dawid-scripts/Fluent) for license details.
+MIT - see the original [Fluent repository](https://github.com/dawid-scripts/Fluent) for license details.
 
 ---
 
 ## Credits
 
 - [dawid-scripts/Fluent](https://github.com/dawid-scripts/Fluent) - original library
-- [richie0866/remote-spy](https://github.com/richie0866/remote-spy) - UI assets and code
-- [violin-suzutsuki/LinoriaLib](https://github.com/violin-suzutsuki/LinoriaLib) - element code, save manager
-- [7kayoh/Acrylic](https://github.com/7kayoh/Acrylic) - Lua acrylic blur port
-- [Latte Softworks & Kotera](https://discord.gg/rMMByr4qas) - bundler
 
 ## Contributors
 
-- **StyearX** - original FluentModded
+- **justmoon56** - main dev
