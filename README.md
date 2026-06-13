@@ -7,7 +7,7 @@ A modified version of the [Fluent](https://github.com/dawid-scripts/Fluent) UI l
 ## Quick Start
 
 ```lua
-local Fluent = loadstring(game:HttpGet("https://github.com/justmoon56/FluentModify/releases/download/Testing/FluentModify.lua"))()
+local Fluent = loadstring(game:HttpGet"https://github.com/justmoon56/FluentModify/releases/download/V1.2.0/FluentModify"))()
 
 local Window = Fluent:CreateWindow({
     Title       = "My Hub",
@@ -27,7 +27,12 @@ local Tabs =  {
     Main = Window:AddTab({ Title = "| Main", Icon = "solar/home-bold }),
     Elements = Window:AddTab({ Title "| Elements", Icon = "rbxassetid://123456789"))()
 }
+```
 
+---
+
+## Create Elements
+```lua
 Tabs.Main:AddParagraph({
     Title = "Text",
     Content = "Text"
