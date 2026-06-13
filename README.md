@@ -68,8 +68,8 @@ InterfaceManager:SetLibrary(Fluent)
 InterfaceManager:SetFolder("MyHub")
 SaveManager:SetFolder("MyHub/Config")
 
-InterfaceManager:BuildInterfaceSection(SettingsTab)
-SaveManager:BuildConfigSection(SettingsTab)
+InterfaceManager:BuildInterfaceSection(Tabs.Settings)
+SaveManager:BuildConfigSection(Tab.Settings)
 
 SaveManager:IgnoreThemeSettings()
 SaveManager:LoadAutoloadConfig()
