@@ -24,8 +24,8 @@ local Window = Fluent:CreateWindow({
 ## Create Tabs
 ```lua
 local Tabs =  {
-    Main = Window:AddTab({ Title = "| Main", Icon = "solar/home-bold }),
-    Elements = Window:AddTab({ Title "| Elements", Icon = "rbxassetid://123456789"))()
+    Main = Window:AddTab({ Title = "| Main", Icon = "rbxassetid://123456789"))(),
+    Elements = Window:AddTab({ Title = "| Elements", Icon = "activity" })
 }
 ```
 
