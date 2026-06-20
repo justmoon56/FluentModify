@@ -64,14 +64,22 @@ All elements are added via `Tab:AddElementType(id, config)`.
 ```lua
 SaveManager:SetLibrary(Fluent)
 InterfaceManager:SetLibrary(Fluent)
+FBM:SetLibrary(Fluent)
 
+SaveManager:SetIgnoreIndexes({})
+
+-- Save Folder
 InterfaceManager:SetFolder("MyHub")
-SaveManager:SetFolder("MyHub/Config")
+FBM:SetFolder("MyHub/FloatingButtons")
+SaveManager:SetFolder("MyHub")
 
 InterfaceManager:BuildInterfaceSection(Tabs.Settings)
+FBM:BuildConfigSection(Tabs.Settings)
 SaveManager:BuildConfigSection(Tabs.Settings)
 
-SaveManager:IgnoreThemeSettings()
+Window:SelectTab(1)
+
+-- Auto Load Configuration
 SaveManager:LoadAutoloadConfig()
 ```
 
