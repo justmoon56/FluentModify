@@ -1,196 +1,178 @@
-local Root = script.Parent.Parent
+local Root    = script.Parent.Parent
 local Flipper = require(Root.Packages.Flipper)
 local Creator = require(Root.Creator)
+local New     = Creator.New
 
-local New = Creator.New
-local Spring = Flipper.Spring.new
-local Instant = Flipper.Instant.new
-local Components = Root.Components
-
-local TabModule = {
-	Window = nil,
-	Tabs = {},
-	Containers = {},
+local Tab = {
+	Window      = nil,
+	Tabs        = {},
+	Containers  = {},
 	SelectedTab = 0,
-	TabCount = 0,
+	TabCount    = 0,
 }
 
-function TabModule:Init(Window)
-	TabModule.Window = Window
-	return TabModule
-end
-
-function TabModule:GetCurrentTabPos()
-	local TabHolderPos = TabModule.Window.TabHolder.AbsolutePosition.Y
-	local TabPos = TabModule.Tabs[TabModule.SelectedTab].Frame.AbsolutePosition.Y
-
-	return TabPos - TabHolderPos
-end
-
-function TabModule:New(Title, Icon, Parent)
-	local Library = require(Root)
-	local Window = TabModule.Window
-	local Elements = Library.Elements
-
-	TabModule.TabCount = TabModule.TabCount + 1
-	local TabIndex = TabModule.TabCount
-
-	local Tab = {
-		Selected = false,
-		Name = Title,
-		Type = "Tab",
-	}
-
-	if Library:GetIcon(Icon) then
-		Icon = Library:GetIcon(Icon)
-	end
-
-	if Icon == "" or nil then
-		Icon = nil
-	end
-
-	Tab.Frame = New("TextButton", {
-		Size = UDim2.new(1, 0, 0, 34),
-		BackgroundTransparency = 1,
-		Parent = Parent,
-		ThemeTag = {
-			BackgroundColor3 = "Tab",
-		},
-	}, {
-		New("UICorner", {
-			CornerRadius = UDim.new(0, 6),
-		}),
-		New("TextLabel", {
-			AnchorPoint = Vector2.new(0, 0.5),
-			Position = Icon and UDim2.new(0, 30, 0.5, 0) or UDim2.new(0, 12, 0.5, 0),
-			Text = Title,
-			RichText = true,
-			TextColor3 = Color3.fromRGB(255, 255, 255),
-			TextTransparency = 0,
-			FontFace = Font.new(
-				"rbxasset://fonts/families/GothamSSm.json",
-				Enum.FontWeight.Regular,
-				Enum.FontStyle.Normal
-			),
-			TextSize = 12,
-			TextXAlignment = "Left",
-			TextYAlignment = "Center",
-			Size = UDim2.new(1, -12, 1, 0),
-			BackgroundTransparency = 1,
-			ThemeTag = {
-				TextColor3 = "Text",
-			},
-		}),
-		New("ImageLabel", {
-			AnchorPoint = Vector2.new(0, 0.5),
-			Size = UDim2.fromOffset(16, 16),
-			Position = UDim2.new(0, 8, 0.5, 0),
-			BackgroundTransparency = 1,
-			Image = Icon and Icon or nil,
-			ThemeTag = {
-				ImageColor3 = "Text",
-			},
-		}),
-	})
-
-	local ContainerLayout = New("UIListLayout", {
-		Padding = UDim.new(0, 5),
-		SortOrder = Enum.SortOrder.LayoutOrder,
-	})
-
-	Tab.ContainerFrame = New("ScrollingFrame", {
-		Size = UDim2.fromScale(1, 1),
-		BackgroundTransparency = 1,
-		Parent = Window.ContainerHolder,
-		Visible = false,
-		BottomImage = "rbxassetid://6889812791",
-		MidImage = "rbxassetid://6889812721",
-		TopImage = "rbxassetid://6276641225",
-		ScrollBarImageColor3 = Color3.fromRGB(255, 255, 255),
-		ScrollBarImageTransparency = 0.95,
-		ScrollBarThickness = 3,
-		BorderSizePixel = 0,
-		CanvasSize = UDim2.fromScale(0, 0),
-		ScrollingDirection = Enum.ScrollingDirection.Y,
-	}, {
-		ContainerLayout,
-		New("UIPadding", {
-			PaddingRight = UDim.new(0, 10),
-			PaddingLeft = UDim.new(0, 1),
-			PaddingTop = UDim.new(0, 1),
-			PaddingBottom = UDim.new(0, 1),
-		}),
-	})
-
-	Creator.AddSignal(ContainerLayout:GetPropertyChangedSignal("AbsoluteContentSize"), function()
-		Tab.ContainerFrame.CanvasSize = UDim2.new(0, 0, 0, ContainerLayout.AbsoluteContentSize.Y + 2)
-	end)
-
-	Tab.Motor, Tab.SetTransparency = Creator.SpringMotor(1, Tab.Frame, "BackgroundTransparency")
-
-	Creator.AddSignal(Tab.Frame.MouseEnter, function()
-		Tab.SetTransparency(Tab.Selected and 0.85 or 0.89)
-	end)
-	Creator.AddSignal(Tab.Frame.MouseLeave, function()
-		Tab.SetTransparency(Tab.Selected and 0.89 or 1)
-	end)
-	Creator.AddSignal(Tab.Frame.MouseButton1Down, function()
-		Tab.SetTransparency(0.92)
-	end)
-	Creator.AddSignal(Tab.Frame.MouseButton1Up, function()
-		Tab.SetTransparency(Tab.Selected and 0.85 or 0.89)
-	end)
-	Creator.AddSignal(Tab.Frame.MouseButton1Click, function()
-		TabModule:SelectTab(TabIndex)
-	end)
-
-	TabModule.Containers[TabIndex] = Tab.ContainerFrame
-	TabModule.Tabs[TabIndex] = Tab
-
-	Tab.Container = Tab.ContainerFrame
-	Tab.ScrollFrame = Tab.Container
-
-	function Tab:AddSection(SectionTitle)
-		local Section = { Type = "Section" }
-
-		local SectionFrame = require(Components.Section)(SectionTitle, Tab.Container)
-		Section.Container = SectionFrame.Container
-		Section.ScrollFrame = Tab.Container
-
-		setmetatable(Section, Elements)
-		return Section
-	end
-
-	setmetatable(Tab, Elements)
+function Tab:Init(window)
+	Tab.Window      = window
+	Tab.Tabs        = {}
+	Tab.Containers  = {}
+	Tab.SelectedTab = 0
+	Tab.TabCount    = 0
 	return Tab
 end
 
-function TabModule:SelectTab(Tab)
-	local Window = TabModule.Window
+function Tab:GetCurrentTabPos()
+	local w  = Tab.Window
+	local yW = w.TabHolder.AbsolutePosition.Y
+	local yT = Tab.Tabs[Tab.SelectedTab].Frame.AbsolutePosition.Y
+	return yT - yW
+end
 
-	TabModule.SelectedTab = Tab
+function Tab:New(title, iconKey, holder)
+	local lib = require(Root)
+	local Elements = lib.Elements
 
-	for _, TabObject in next, TabModule.Tabs do
-		TabObject.SetTransparency(1)
-		TabObject.Selected = false
+	Tab.TabCount = Tab.TabCount + 1
+	local idx = Tab.TabCount
+
+	local iconData = nil
+	if iconKey and iconKey ~= "" then
+		iconData = lib:GetIcon(iconKey)
 	end
-	TabModule.Tabs[Tab].SetTransparency(0.89)
-	TabModule.Tabs[Tab].Selected = true
 
-	Window.TabDisplay.Text = TabModule.Tabs[Tab].Name
-	Window.SelectorPosMotor:setGoal(Spring(TabModule:GetCurrentTabPos(), { frequency = 6 }))
+	local t = {
+		Selected = false,
+		Name     = title,
+		Type     = "Tab",
+	}
+
+	local textPos = iconData and UDim2.new(0, 30, 0.5, 0) or UDim2.new(0, 12, 0.5, 0)
+
+	t.Frame = New("TextButton", {
+		Size                 = UDim2.new(1, 0, 0, 34),
+		BackgroundTransparency = 1,
+		Parent               = holder,
+		Text                 = "",
+		ThemeTag             = { BackgroundColor3 = "Tab" },
+	}, {
+		New("UICorner", { CornerRadius = UDim.new(0, 6) }),
+		New("TextLabel", {
+			AnchorPoint      = Vector2.new(0, 0.5),
+			Position         = textPos,
+			Text             = title,
+			RichText         = true,
+			TextSize         = 13,
+			TextXAlignment   = Enum.TextXAlignment.Left,
+			Size             = UDim2.new(1, -12, 1, 0),
+			BackgroundTransparency = 1,
+			ThemeTag         = { TextColor3 = "Text" },
+		}),
+		New("ImageLabel", {
+			AnchorPoint          = Vector2.new(0, 0.5),
+			Size                 = UDim2.fromOffset(16, 16),
+			Position             = UDim2.new(0, 8, 0.5, 0),
+			BackgroundTransparency = 1,
+			Visible              = iconData ~= nil,
+			Image                = iconData and (type(iconData) == "table" and iconData.Image or iconData) or "",
+			ImageRectOffset      = (iconData and type(iconData) == "table") and iconData.ImageRectOffset or Vector2.new(),
+			ImageRectSize        = (iconData and type(iconData) == "table") and iconData.ImageRectSize  or Vector2.new(),
+			ThemeTag             = { ImageColor3 = "Text" },
+		}),
+	})
+
+	local layout = New("UIListLayout", {
+		Padding   = UDim.new(0, 5),
+		SortOrder = Enum.SortOrder.LayoutOrder,
+	})
+
+	-- ScrollingFrame for tab content — ClipsDescendants on parent prevents bleed
+	t.ContainerFrame = New("ScrollingFrame", {
+		Size                      = UDim2.fromScale(1, 1),
+		BackgroundTransparency    = 1,
+		Parent                    = Tab.Window.ContainerHolder,
+		Visible                   = false,
+		ClipsDescendants          = true,
+		BottomImage               = "rbxassetid://6889812791",
+		MidImage                  = "rbxassetid://6889812721",
+		TopImage                  = "rbxassetid://6276641225",
+		ScrollBarImageColor3      = Color3.fromRGB(255, 255, 255),
+		ScrollBarImageTransparency = 0.85,
+		ScrollBarThickness        = 4,
+		BorderSizePixel           = 0,
+		CanvasSize                = UDim2.fromScale(0, 0),
+		ScrollingDirection        = Enum.ScrollingDirection.Y,
+	}, {
+		layout,
+		New("UIPadding", {
+			PaddingRight  = UDim.new(0, 14),
+			PaddingLeft   = UDim.new(0, 4),
+			PaddingTop    = UDim.new(0, 4),
+			PaddingBottom = UDim.new(0, 4),
+		}),
+	})
+
+	Creator.AddSignal(layout:GetPropertyChangedSignal("AbsoluteContentSize"), function()
+		t.ContainerFrame.CanvasSize = UDim2.new(0, 0, 0, layout.AbsoluteContentSize.Y + 2)
+	end)
+
+	local _, setTransp = Creator.SpringMotor(1, t.Frame, "BackgroundTransparency")
+
+	Creator.AddSignal(t.Frame.MouseEnter,       function() setTransp(t.Selected and 0.85 or 0.89) end)
+	Creator.AddSignal(t.Frame.MouseLeave,       function() setTransp(t.Selected and 0.89 or 1)    end)
+	Creator.AddSignal(t.Frame.MouseButton1Down, function() setTransp(0.92) end)
+	Creator.AddSignal(t.Frame.MouseButton1Up,   function() setTransp(t.Selected and 0.85 or 0.89) end)
+	Creator.AddSignal(t.Frame.MouseButton1Click,function() Tab:SelectTab(idx) end)
+
+	t.SetTransparency  = setTransp
+	t.Container        = t.ContainerFrame
+	t.ScrollFrame      = t.ContainerFrame
+
+	Tab.Containers[idx] = t.ContainerFrame
+	Tab.Tabs[idx]       = t
+
+	-- AddSection signature: (self, title, iconKey)  — iconKey optional
+	function t:AddSection(sectionTitle, iconKey)
+		local sec = {}
+		sec.Type       = "Section"
+		local SectionComp = require(Root.Components.Section)
+		local raw         = SectionComp(sectionTitle, iconKey, t.ContainerFrame)
+		sec.Container  = raw.Container
+		sec.ScrollFrame = t.ContainerFrame
+		setmetatable(sec, lib.Elements)
+		return sec
+	end
+
+	setmetatable(t, lib.Elements)
+	return t
+end
+
+function Tab:SelectTab(idx)
+	local w = Tab.Window
+	Tab.SelectedTab = idx
+
+	for _, tabObj in pairs(Tab.Tabs) do
+		tabObj.SetTransparency(1)
+		tabObj.Selected = false
+	end
+
+	Tab.Tabs[idx].SetTransparency(0.89)
+	Tab.Tabs[idx].Selected = true
+	w.TabDisplay.Text      = Tab.Tabs[idx].Name
+	w.SelectorPosMotor:setGoal(Flipper.Spring.new(Tab:GetCurrentTabPos(), { frequency = 6 }))
 
 	task.spawn(function()
-		Window.ContainerPosMotor:setGoal(Spring(110, { frequency = 10 }))
-		Window.ContainerBackMotor:setGoal(Spring(1, { frequency = 10 }))
+		w.ContainerPosMotor:setGoal(Flipper.Spring.new(110, { frequency = 10 }))
+		w.ContainerBackMotor:setGoal(Flipper.Spring.new(1,   { frequency = 10 }))
 		task.wait(0.15)
-		for _, Container in next, TabModule.Containers do
-			Container.Visible = false
+		for _, cf in pairs(Tab.Containers) do
+			cf.Visible = false
+			for _, vf in ipairs(cf:GetDescendants()) do
+				if vf:IsA("VideoFrame") then pcall(function() vf.Volume = 0 end) end
+			end
 		end
-		TabModule.Containers[Tab].Visible = true
-		Window.ContainerPosMotor:setGoal(Spring(94, { frequency = 5 }))
-		Window.ContainerBackMotor:setGoal(Spring(0, { frequency = 8 }))
+		Tab.Containers[idx].Visible = true
+		w.ContainerPosMotor:setGoal(Flipper.Spring.new(90, { frequency = 10 }))
+		w.ContainerBackMotor:setGoal(Flipper.Spring.new(0, { frequency = 10 }))
 	end)
 end
 
-return TabModule
+return Tab
