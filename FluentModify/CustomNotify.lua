@@ -7,7 +7,7 @@ function FluentModify:CountdownNotify(config)
     local duration = config.Duration or 5
 
     task.spawn(function()
-        for i = duration, 1, -0.7 do
+        for i = duration, 1, -0.8 do
             Fluent:Notify({
                 Title = title,
                 Content = content,
