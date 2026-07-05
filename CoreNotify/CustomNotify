@@ -12,7 +12,7 @@ function FluentModify:CountdownNotify(config)
                 Title = title,
                 Content = content,
                 SubContent = baseSubContent .. " " .. i .. "s",
-                Duration = 1
+                Duration = 0.7
             })
             if i > 1 then
                 task.wait(1)
@@ -34,7 +34,7 @@ function FluentModify:CustomNotify(config)
     local localPlayer = players.LocalPlayer
     local playerGui = localPlayer:WaitForChild("PlayerGui")
 
-    local folderName = "MyInterfaceManager" 
+    local folderName = "MyInterfaceManager" -- Change this to your InterfaceManager Name
     local fileName = folderName .. "/options.json"
     local activeTheme = ""
 
@@ -896,7 +896,7 @@ function FluentModify:CustomNotify(config)
     closeIcon.Position = UDim2.fromScale(0.5, 0.5)
     closeIcon.AnchorPoint = Vector2.new(0.5, 0.5)
     closeIcon.BackgroundTransparency = 1
-    closeIcon.ImageColor3 = mainTextColor -- Tombol close x ikut berubah warna cerah/gelap
+    closeIcon.ImageColor3 = mainTextColor
     closeIcon.Parent = closeButton
 
     local function updateSize()
