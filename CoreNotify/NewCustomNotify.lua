@@ -46,7 +46,7 @@ function FluentModify:CustomNotify(config)
 
     local stripeColor = typeColorMap[notificationType] or typeColorMap.Info
 
-    local folderName = "MyInterfaceManager" 
+    local folderName = "MyInterfaceManager" -- Change this to your InterfaceManager name
     local fileName = folderName .. "/options.json"
     local activeTheme = ""
 
@@ -789,7 +789,7 @@ function FluentModify:CustomNotify(config)
     elseif rawColor and typeof(rawColor) == "Color3" then
         finalGradientColor = ColorSequence.new(rawColor, rawColor)
     else
-        finalGradientColor = ColorSequence.new(Color3.fromRGB(20, 20, 20)) -- Fallback if Theme are not in Fluent
+        finalGradientColor = ColorSequence.new(Color3.fromRGB(20, 20, 20)) -- Fallback if Theme is nil
     end
 
     local uiGradient = Instance.new("UIGradient")
