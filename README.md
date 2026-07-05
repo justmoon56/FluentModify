@@ -10,14 +10,14 @@ A modified version of the [Fluent](https://github.com/dawid-scripts/Fluent) UI l
 local Fluent = loadstring(game:HttpGet"https://github.com/justmoon56/FluentModify/releases/download/V1.2.0/FluentModify"))()
 
 local Window = Fluent:CreateWindow({
-    Title       = "My Hub",
-    SubTitle    = "by me",
-    TabWidth    = 160,
-    Size        = UDim2.fromOffset(500, 480),
-    Acrylic     = true,
-    Theme       = "Darker",
+    Title = "My Hub",
+    SubTitle = "by me",
+    TabWidth = 160,
+    Size = UDim2.fromOffset(500, 480),
+    Acrylic = true,
+    Theme = "Darker",
     MinimizeKey = Enum.KeyCode.LeftControl,
-    Search      = true,
+    Search = true,
 })
 ```
 
@@ -94,7 +94,9 @@ MIT - see the original [Fluent repository](https://github.com/dawid-scripts/Flue
 ## Credits
 
 - [dawid-scripts/Fluent](https://github.com/dawid-scripts/Fluent) - original library
-
+- [Fluent-Modded/FluentPro](https://github.com/StyearX/Fluent-modded)
+- 
 ## Contributors
 
 - **justmoon56** - main dev
+- **StyearX**
