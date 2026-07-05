@@ -816,8 +816,8 @@ function FluentModify:CustomNotify(config)
         end)
     end
 
-    local mainTextColor = currentTheme and currentTheme.Text
-    local subTextColor = currentTheme and currentTheme.SubText
+    local mainTextColor = currentTheme and currentTheme.Text or Color3.fromRGB(255, 255, 255)
+    local subTextColor = currentTheme and currentTheme.SubText or Color3.fromRGB(180, 180, 180)
 
     local titleLabel = Instance.new("TextLabel")
     titleLabel.Name = "Title"
