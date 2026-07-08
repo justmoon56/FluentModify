@@ -942,7 +942,7 @@ function FluentModify:CustomNotify(config)
     copyIcon.Position = UDim2.fromScale(0.5, 0.5)
     copyIcon.AnchorPoint = Vector2.new(0.5, 0.5)
     copyIcon.BackgroundTransparency = 1
-    copyIcon.ImageColor3 = mainTextColor
+    copyIcon.ImageColor3 = subTextColor
     copyIcon.Parent = copyBtn
 
     copyBtn.MouseButton1Click:Connect(function()
