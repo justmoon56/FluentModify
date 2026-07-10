@@ -7,7 +7,7 @@ A modified version of the [Fluent](https://github.com/dawid-scripts/Fluent) UI l
 ## Quick Start
 
 ```lua
-local Fluent = loadstring(game:HttpGet"https://github.com/justmoon56/FluentModify/releases/download/V1.2.0/FluentModify"))()
+loadstring(game:HttpGet("https://github.com/justmoon56/FluentModify/releases/download/V1.4.1/FluentModify.lua"))()
 
 local Window = Fluent:CreateWindow({
     Title = "My Hub",
@@ -18,10 +18,15 @@ local Window = Fluent:CreateWindow({
     Theme = "Darker",
     MinimizeKey = Enum.KeyCode.LeftControl,
     Search = true,
+
+    Icons = "rbxassetid://"
+    TitleIcon = "rbxassetid://"
 })
 ```
 
-## Create Tabs
+If you have created a window, then we can immediately create tabs, you can do like this
+
+## Tabs
 ```lua
 local Tabs =  {
     Main = Window:AddTab({ Title = "| Main", Icon = "rbxassetid://123456789"))(),
@@ -33,9 +38,40 @@ local Tabs =  {
 
 ## Create Elements
 ```lua
-Tabs.Main:AddParagraph({
-    Title = "Text",
-    Content = "Text"
+local group = Tabs.Elements:AddGroup("Display", { Columns = 2, Gap = 8 })
+local colLeft = group:AddElement()
+local colRight = group:AddElement()
+
+colLeft:AddImageButton({
+    AspectRatio = "1:1",
+    Image = "rbxassetid://138612651588256", -- rbxassetid, and Https
+    Title = "Apply",
+    Description = "Trigger the Button to Apply",
+    Callback = function()
+        Fluent:Notify({
+            Title = "Success",
+            Content = "Trugger Successfully",
+            Type = "Success",
+            Icon = nil,
+            Duration = 2
+        })
+    end
+})
+
+colRight:AddImageButton({
+    AspectRatio = "1:1",
+    Image = "https://i.pinimg.com/736x/56/42/4a/56424a41330f0f66cb0b88862ac13079.jpg", -- rbxassetid, and Https
+    Title = "Apply",
+    Description = "Trigger the Button to Apply",
+    Callback = function()
+        Fluent:Notify({
+            Title = "Success",
+            Content = "Trugger Successfully",
+            Type = "Success",
+            Icon = nil,
+            Duration = 2
+        })
+    end
 })
 ```
 
@@ -54,6 +90,12 @@ All elements are added via `Tab:AddElementType(id, config)`.
 | `AddKeybind` | Keyboard/mouse keybind |
 | `AddButton` | Clickable button |
 | `AddParagraph` | Read-only text block |
+| `AddDiscord` | Shows Discord server profile |
+| `AddImage` | Shows an Image |
+| `AddVudeo` | Shows an Video |
+| `AddViewport` | 3D view |
+| `AddGroup` | Make all elements separate left and right |
+| `AddImageButton` | Clickable image in AddGroup |
 
 
 
@@ -77,6 +119,8 @@ InterfaceManager:BuildInterfaceSection(Tabs.Settings)
 FBM:BuildConfigSection(Tabs.Settings)
 SaveManager:BuildConfigSection(Tabs.Settings)
 
+MediaManager:SetFolder("MyMediaManager/MediaCache")
+
 Window:SelectTab(1)
 
 -- Auto Load Configuration
@@ -94,8 +138,8 @@ MIT - see the original [Fluent repository](https://github.com/dawid-scripts/Flue
 ## Credits
 
 - [dawid-scripts/Fluent](https://github.com/dawid-scripts/Fluent) - original library
-- [Fluent-Modded/FluentPro](https://github.com/StyearX/Fluent-modded)
-- 
+- [Fluent-Modded/FluentPro](https://github.com/StyearX/Fluent-modded) - logic
+
 ## Contributors
 
 - **justmoon56** - main dev
