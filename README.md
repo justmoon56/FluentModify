@@ -50,7 +50,7 @@ colLeft:AddImageButton({
     Callback = function()
         Fluent:Notify({
             Title = "Success",
-            Content = "Trugger Successfully",
+            Content = "Trigger Successfully",
             Type = "Success",
             Icon = nil,
             Duration = 2
@@ -66,7 +66,7 @@ colRight:AddImageButton({
     Callback = function()
         Fluent:Notify({
             Title = "Success",
-            Content = "Trugger Successfully",
+            Content = "Trigger Successfully",
             Type = "Success",
             Icon = nil,
             Duration = 2
