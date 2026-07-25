@@ -91,9 +91,9 @@ All elements are added via `Tab:AddElementType(id, config)`.
 | `AddButton` | Clickable button |
 | `AddParagraph` | Read-only text block |
 | `AddDiscord` | Shows Discord server profile |
-| `AddImage` | Shows an Image |
-| `AddVudeo` | Shows an Video |
-| `AddViewport` | 3D view |
+| `AddImage` | Shows an Image and support https |
+| `AddVudeo` | Play an Video rbxassetid |
+| `AddViewport` | 3D views object  |
 | `AddGroup` | Make all elements separate left and right |
 | `AddImageButton` | Clickable image in AddGroup |
 
